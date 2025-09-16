@@ -4,3 +4,4 @@ setuptools
 psycopg2
 scikit-learn
 redis
+alibi-detect
