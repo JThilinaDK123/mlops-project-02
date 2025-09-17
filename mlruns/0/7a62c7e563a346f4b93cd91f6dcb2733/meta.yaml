@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/thilina/Downloads/MLOps%20Projects/Project_02/mlruns/0/7a62c7e563a346f4b93cd91f6dcb2733/artifacts
+end_time: 1758091320011
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 7a62c7e563a346f4b93cd91f6dcb2733
+run_name: righteous-hare-262
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1758091312979
+status: 3
+tags: []
+user_id: thilina

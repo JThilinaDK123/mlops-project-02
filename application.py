@@ -16,6 +16,8 @@ prediction_count = Counter('prediction_count' , "Number of prediction count" )
 drift_count = Counter('drift_count' , "Number of times data drift is detected")
 
 MODEL_PATH = "artifacts/models/random_forest_model.pkl"
+CLEANED_TRAINING_DATASET_PATH = "artifacts/raw/final_train_data.csv"
+
 with open(MODEL_PATH , 'rb') as model_file:
     model = pickle.load(model_file)
 
@@ -25,17 +27,24 @@ FEATURE_NAMES = ['Age', 'Fare', 'Pclass', 'Sex', 'Embarked', 'Familysize', 'Isal
 feature_store = RedisFeatureStore()
 scaler = StandardScaler()
 
-## Get the reference data
-def fit_scaler_on_ref_data():
-    entity_ids = feature_store.get_all_entity_ids()
-    all_features = feature_store.get_batch_features(entity_ids)
-    all_features_df = pd.DataFrame.from_dict(all_features , orient='index')[FEATURE_NAMES]
+## Get the reference data (If we want to use REDIS Feature store)
+# def fit_scaler_on_ref_data():
+#     entity_ids = feature_store.get_all_entity_ids()
+#     all_features = feature_store.get_batch_features(entity_ids)
+#     all_features_df = pd.DataFrame.from_dict(all_features , orient='index')[FEATURE_NAMES]
 
+#     scaler.fit(all_features_df)
+#     return scaler.transform(all_features_df)
+
+
+## Get the reference data (If we want to use already saved training dataset)
+def fit_scaler_on_ref_data(CLEANED_TRAINING_DATASET_PATH):
+    all_features_df = pd.read_csv(CLEANED_TRAINING_DATASET_PATH)[FEATURE_NAMES]
     scaler.fit(all_features_df)
     return scaler.transform(all_features_df)
 
 
-historical_data = fit_scaler_on_ref_data()
+historical_data = fit_scaler_on_ref_data(CLEANED_TRAINING_DATASET_PATH)
 ksd = KSDrift(x_ref = historical_data, p_val = 0.05)
 
 

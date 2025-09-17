@@ -15,7 +15,7 @@ if __name__=="__main__":
     feature_store = RedisFeatureStore()
 
     ## Data processing pipeline
-    data_processor = DataProcessing(TRAIN_PATH, TEST_PATH, feature_store)
+    data_processor = DataProcessing(TRAIN_PATH, TEST_PATH, CLEANED_DATA_PATH, feature_store)
     data_processor.run()
 
     ## Model Training pipeline

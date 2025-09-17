@@ -10,9 +10,10 @@ logger = get_logger(__name__)
 
 
 class DataProcessing:
-    def __init__(self, train_data_path , test_data_path , feature_store : RedisFeatureStore):
+    def __init__(self, train_data_path , test_data_path , cleaned_train_data_path, feature_store : RedisFeatureStore):
         self.train_data_path = train_data_path
         self.test_data_path = test_data_path
+        self.cleaned_train_data_path = cleaned_train_data_path
         self.data=None
         self.test_data = None
         self.X_train = None
@@ -139,6 +140,21 @@ class DataProcessing:
             raise CustomException(str(e))
         
 
+    def save_data(self):
+
+        """
+            Save them in the artifacts folder
+        """
+        
+        try:
+            self.data.to_csv(CLEANED_DATA_PATH, index=False)
+            logger.info("Preprocessed Train data save to model artifacts")
+
+        except Exception as e:
+            logger.error(f"Error while saving data {e}")
+            raise CustomException("Error while saving cleaned training dataset")
+        
+
     def retrive_feature_redis_store(self,entity_id):
         features = self.feature_store.get_features(entity_id)
         if features:
@@ -153,6 +169,7 @@ class DataProcessing:
             self.preprocess_data()
             self.handle_imbalance_data()
             self.store_feature_in_redis()
+            self.save_data()
 
             logger.info("End of pipeline Data Processing...")
 
@@ -163,7 +180,7 @@ class DataProcessing:
 
 if __name__=="__main__":
     feature_store = RedisFeatureStore()
-    data_processor = DataProcessing(TRAIN_PATH, TEST_PATH, feature_store)
+    data_processor = DataProcessing(TRAIN_PATH, TEST_PATH, CLEANED_DATA_PATH, feature_store)
     data_processor.run()
 
     print(data_processor.retrive_feature_redis_store(entity_id=332))
