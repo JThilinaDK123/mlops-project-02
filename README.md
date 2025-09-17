@@ -22,5 +22,3 @@
 12. ML Monitoring (**Prometheus**, **Grafana**)
 
 ---
-python -m venv venv
-source venv/bin/activate
