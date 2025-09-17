@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/thilina/Downloads/MLOps%20Projects/Project_02/mlruns/0/11b9633d7bd64f0e84ff4616a3a979bd/artifacts
+end_time: 1758076775764
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 11b9633d7bd64f0e84ff4616a3a979bd
+run_name: industrious-bat-390
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1758076768881
+status: 4
+tags: []
+user_id: thilina

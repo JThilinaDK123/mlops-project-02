@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/thilina/Downloads/MLOps%20Projects/Project_02/mlruns/0/1f4f2a9ea6ba4e7fbdf933fafd6fcca3/artifacts
+end_time: 1758076449203
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 1f4f2a9ea6ba4e7fbdf933fafd6fcca3
+run_name: legendary-mouse-419
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1758076449070
+status: 4
+tags: []
+user_id: thilina

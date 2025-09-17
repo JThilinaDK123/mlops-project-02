@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'flask_app' ## Can give any name
+    static_configs:
+      - targets: ['host.docker.internal:5000']
+
+      ## This target variable contains "host.docker.internal" beacuse the flask app is running in localhost:5000 port.
+      ## Its not running in docker. So to catch that port, it should add like "host.docker.internal"

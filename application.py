@@ -12,7 +12,7 @@ logger = get_logger(__name__)
 
 app = Flask(__name__ , template_folder="templates")
 
-prediction_count = Counter('prediction_count' , " Number of prediction count" )
+prediction_count = Counter('prediction_count' , "Number of prediction count" )
 drift_count = Counter('drift_count' , "Number of times data drift is detected")
 
 MODEL_PATH = "artifacts/models/random_forest_model.pkl"
@@ -75,7 +75,10 @@ def predict():
             print("Drift Detected....")
             logger.info("Drift Detected....")
 
-            drift_count.inc()
+            drift_count.inc() 
+            ## This means an increment
+            ## At the early stage, the drift count is zero.
+            ## Once the drift detected, this will becomes one
 
 
         prediction = model.predict(features)[0]
@@ -88,7 +91,9 @@ def predict():
     except Exception as e:
         return jsonify({'error' : str(e)})
     
-    
+
+## By using below routing, we can access the inbuild/default metrics in prometheus
+## However, we have created our own metrics as well, eg: prediction count and drift count
 @app.route('/metrics')
 def metrics():
     from prometheus_client import generate_latest
@@ -98,6 +103,6 @@ def metrics():
     
 if __name__ =="__main__":
     start_http_server(8000)
-    app.run(debug=True , host='0.0.0.0' , port=5000)
+    app.run(debug=True , host='0.0.0.0' , port = 5000)
 
 

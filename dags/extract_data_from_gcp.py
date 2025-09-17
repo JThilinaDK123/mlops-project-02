@@ -10,8 +10,8 @@ import sqlalchemy
 ## Transform Step
 def load_to_sql(file_path):
     conn = BaseHook.get_connection('postgres_default')  ## This should be the connection ID name relates to postgres connection in airflow
-    engine = sqlalchemy.create_engine(f"postgresql+psycopg2://{conn.login}:{conn.password}@testing-3_607202-postgres-1:{conn.port}/{conn.schema}")
-    ## "testing-3_607202-postgres-1", This part should replace by the container name
+    engine = sqlalchemy.create_engine(f"postgresql+psycopg2://{conn.login}:{conn.password}@project-02_884e44-postgres-1:{conn.port}/{conn.schema}")
+    ## "project-02_884e44-postgres-1", This part should replace by the container name
     ## Container name (postgres) can be found in docker desktop.
     df = pd.read_csv(file_path)
     df.to_sql(name = "titanic", con = engine, if_exists = "replace", index = False)

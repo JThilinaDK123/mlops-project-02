@@ -1,7 +1,10 @@
 pandas
 numpy
 setuptools
-psycopg2
+# psycopg2
+# psycopg2-binary
+# apache-airflow-providers-google
 scikit-learn
 redis
 alibi-detect
+prometheus_client

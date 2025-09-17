@@ -1,9 +1,11 @@
-FROM astrocrpublic.azurecr.io/runtime:3.0-10
+FROM quay.io/astronomer/astro-runtime:7.3.0
+
+USER root
 
 RUN apt-get update && \
-    apt-get install -y curl build-essential pkg-config libssl-dev && \
-    curl https://sh.rustup.rs -sSf | sh -s -- -y && \
-    . "$HOME/.cargo/env"
+    apt-get install -y libpq-dev && \
+    rm -rf /var/lib/apt/lists/*
 
-# Install apache-airflow-providers-google
-RUN pip install --no-cache-dir apache-airflow-providers-google
+USER astro
+
+RUN pip install --no-cache-dir apache-airflow-providers-google psycopg2-binary

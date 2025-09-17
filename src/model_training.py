@@ -89,7 +89,8 @@ class ModelTraining:
                 }
             
             rf = RandomForestClassifier(random_state=42)
-            random_search = RandomizedSearchCV(rf, param_distributions, n_iter=10, cv=3, scoring='accuracy', random_state=42)
+            random_search = RandomizedSearchCV(rf, param_distributions, n_iter=10, cv=3, 
+                                               scoring='accuracy', random_state=42)
             random_search.fit(X_train, y_train)
 
             logger.info(f"Best paramters : {random_search.best_params_}")
@@ -138,7 +139,7 @@ class ModelTraining:
             logger.info(f"Model saved at {model_filename}")
         except Exception as e:
             logger.error(f"Error while model saving {e}")
-            raise CustomException(str(e))
+            raise CustomException("Error in Model Saving")
         
         
     def run(self):
@@ -147,17 +148,17 @@ class ModelTraining:
             with mlflow.start_run():
                 logger.info("Starting Model Training Pipleine....")
                 X_train, X_test, y_train, y_test = self.prepare_data()
-                best_params = self.hyperparamter_tuning(self, X_train, y_train)
+                best_params = self.hyperparamter_tuning(X_train, y_train)
                 accuracy = self.train_and_evaluate(X_train, y_train, X_test, y_test)
 
-                mlflow.log_metrics(accuracy)
-                mlflow.log_params(best_params)
+                # mlflow.log_metrics(accuracy)
+                # mlflow.log_params(best_params)
 
                 logger.info("End of Model Training pipeline...")
 
         except Exception as e:
             logger.error(f"Error while model training pipeline {e}")
-            raise CustomException(str(e))
+            raise CustomException("Error in model training pipeline")
         
         
 if __name__ == "__main__":
